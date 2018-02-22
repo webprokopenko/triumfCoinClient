@@ -1,7 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+//import AccountService from '../services/AccountService';
 
 const COINS = require('../coins');
+
+
+//const acs = new AccountService();
+//acs.createETHAccount('test passphrase');
 
 export default class CoinPage extends React.Component{
     render(){
