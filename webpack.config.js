@@ -7,7 +7,14 @@ module.exports = {
         filename: 'bundle.js'
     },
     module:{
-        loaders: [
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" }
+                ]
+            },
             {
                 test: path.join(__dirname, 'src'),
                 loader: 'babel-loader',
