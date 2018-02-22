@@ -22,6 +22,17 @@ module.exports = {
                     cacheDirectory: 'babel_cache',
                     presets: ['es2017','react']
                 }
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
+                    }
+                ]
             }
         ]
     },
