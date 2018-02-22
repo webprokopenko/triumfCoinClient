@@ -10,7 +10,7 @@ export default class authorsIndex extends React.Component{
     render(){
         return(
             <div>
-                <h1>List coins</h1>
+                <h1 className='display-3'>List coins</h1>
                 <ul>{
                     coins.map(coin=> <li key={coin.id}><Link to={`/coin/${coin.slug}`}>{coin.name}</Link></li>)
                 }</ul>
