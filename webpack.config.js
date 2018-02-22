@@ -20,7 +20,7 @@ module.exports = {
                 loader: 'babel-loader',
                 query:{
                     cacheDirectory: 'babel_cache',
-                    presets: ['es2015','react']
+                    presets: ['es2017','react']
                 }
             }
         ]
