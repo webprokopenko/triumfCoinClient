@@ -1,6 +1,7 @@
 module.exports = {
     'eth': {
         'name': 'Ethereum',
+        'shortName': 'ETH',
         'description': [
             'Starts in ',
             'Authors is',
@@ -10,6 +11,7 @@ module.exports = {
 
     'btc': {
         'name': 'Bitcoin',
+        'shortName': 'BTC',
         'description': [
             'Starts in ',
             'Authors is',
