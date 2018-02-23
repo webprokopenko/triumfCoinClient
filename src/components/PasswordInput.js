@@ -21,10 +21,9 @@ class PasswordInput extends React.Component {
 
         return (
             <div className="form-group">
-                <label htmlFor="exampleInputPassword">Password</label>
+                <label htmlFor="InputPassword">Password</label>
                 <input
                     className="form-control"
-                    id="InputPassword1"
                     onChange={this.changeValue}
                     type="password"
                     value={this.props.getValue() || ''}

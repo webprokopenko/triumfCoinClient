@@ -1,16 +1,47 @@
-import Dialog from 'react-dialog'
+import Formsy from 'formsy-react';
 import React from 'react';
+import PasswordInput from './PasswordInput';
+import Dialog from 'react-dialog'
+import AccountService from '../services/AccountService';
+
+
 import 'react-dialog/css/index.css';
-export default class Example extends React.Component {
-    constructor() {
-        super();
+
+export default class CWdialog extends React.Component {
+    constructor(props) {
+        super(props);
+        this.disableButton = this.disableButton.bind(this);
+        this.enableButton = this.enableButton.bind(this);
+        this.submit = this.submit.bind(this);
+        this.state = { canSubmit: false };
+
         this.state = {
             isDialogOpen: false
         };
         this.openDialog = () => this.setState({ isDialogOpen: true });
-
         this.handleClose = () => this.setState({ isDialogOpen: false });
+
+        this.wallet = props.wallet;
     }
+
+    disableButton() {
+        this.setState({ canSubmit: false });
+    }
+
+    enableButton() {
+        this.setState({ canSubmit: true });
+        console.log(this.wallet);
+    }
+
+    submit(model) {
+        if(model.password2){
+            const acs = new AccountService();
+            switch (this.wallet){
+                case 'ETH' : acs.createETHAccount(model.password2);
+            }
+        }
+    }
+
     render() {
         return (
             <div className="container">
@@ -18,17 +49,28 @@ export default class Example extends React.Component {
                 {
                     this.state.isDialogOpen &&
                     <Dialog
-                        title="Dialog Title"
                         modal={true}
-                        onClose={this.handleClose}
-                        buttons={
-                            [{
-                                text: "Close",
-                                onClick: () => this.handleClose()
-                            }]
-                        }>
-                        <h1>Dialog Content</h1>
-                        <p>More Content. Anything goes here</p>
+                        height={500}
+                        width={700}
+                        isDraggable={true}
+                        closeOnEscape={true}
+                        onClose={this.handleClose}>
+                        <h1>Create new Ethereum Wallet</h1>
+                        <Formsy onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
+                            <PasswordInput
+                                name="password1"
+                                validations="minLength:8"
+                                validationError="Password length minimum 8 symbols"
+                                required
+                            />
+                            <PasswordInput
+                                name="password2"
+                                validations="equalsField:password1"
+                                validationError="Passwords must by equals"
+                                required
+                            />
+                            <button type="submit" disabled={!this.state.canSubmit}>Submit</button>
+                        </Formsy>
                     </Dialog>
                 }
             </div>
