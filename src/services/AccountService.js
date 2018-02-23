@@ -63,6 +63,42 @@ export default class AccountService {
             account.refresh = false;
         }
     }
+    openETHAccount(passphrase, Keyfile){
+        console.log('Key File in openETHAccount');
+        console.log(Keyfile);
+        console.log('Passphrase in openETHAccount: ');
+        console.log(passphrase);
+        try{
+            let privateKey = this.libKeythereum.recover(passphrase, Keyfile);
+            let readablePrivKey = privateKey.toString('base64');
+            console.log('Private Key: ');
+            console.log(readablePrivKey);
+
+            this.libKeythereum.recover(passphrase, Keyfile, (pKey) => {
+                if (pKey) {
+                    const account = new Account();
+                    account.address = '0x' + Keyfile.address;
+                    account.key = pKey;
+                    account.network = 'Ropsten';
+                    account.symbol = 'ETH';
+                    account.balance = '';
+                    account.unlock = true;
+                    account.open = false;
+                    account.hide = true;
+                    account.refresh = false;
+                    //this.accounts.push(account);
+                    console.log('Account: ')
+                    console.log(account);
+                } else {
+                    console.log('Not account');
+                }
+            });
+        } catch (e){
+            console.log('Error in Open ETHAccount');
+            console.log(e);
+        }
+
+    }
     saveKeyFile(keyFile){
         const blob = new Blob([JSON.stringify(keyFile)], {type: 'text/json'});
         const e = document.createEvent('MouseEvent');
